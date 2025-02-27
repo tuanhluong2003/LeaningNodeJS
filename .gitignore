@@ -1,0 +1,6 @@
+# cái nào không muốn đẩy lên git
+/node_modules
+/vender
+/.idea
+.idea/
+# .env
