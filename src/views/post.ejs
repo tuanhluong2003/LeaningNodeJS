@@ -10,22 +10,17 @@
 
 <body>
     <div class="container mt-10">
-        <h2 class="text-center mb-10">Danh sách dữ liệu</h2>
+        <h2 class="text-center mb-10">Danh sách dữ liệu POST</h2>
         <div class="table-responsive">
             <table class="table table-bordered table-striped table-hover">
                 <thead class="table-dark">
                     <tr>
                         <th>ID</th>
-                        <th>Email</th>
-                        <th>Password</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Address</th>
-                        <th>Phone Number</th>
-                        <th>Gender</th>
-                        <th>Image</th>
-                        <th>Role ID</th>
-                        <th>Position ID</th>
+                        <th>Title</th>
+                        <th>date</th>
+                        <th>description</th>
+                        <th>link</th>
+                        <th>Author Name</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -36,34 +31,19 @@
                                     <%= item.id %>
                                 </td>
                                 <td>
-                                    <%= item.email %>
+                                    <%= item.title %>
                                 </td>
                                 <td>
-                                    <%= item.password %>
+                                    <%= item.date %>
                                 </td>
                                 <td>
-                                    <%= item.firstName %>
+                                    <%= item.description %>
                                 </td>
                                 <td>
-                                    <%= item.lastName %>
+                                    <%= item.link %>
                                 </td>
                                 <td>
-                                    <%= item.address %>
-                                </td>
-                                <td>
-                                    <%= item.phoneNumber %>
-                                </td>
-                                <td>
-                                    <%= item.gender %>
-                                </td>
-                                <td>
-                                    <%= item.image %>
-                                </td>
-                                <td>
-                                    <%= item.roleId %>
-                                </td>
-                                <td>
-                                    <%= item.possitionId %>
+                                    <%= item.Author.name %>
                                 </td>
                             </tr>
                             <% }) %>

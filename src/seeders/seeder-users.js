@@ -1,36 +1,32 @@
 'use strict';
 
-module.exports = {
-  // email: DataTypes.STRING,
-  // password: DataTypes.STRING,
-  // firstName: DataTypes.STRING,
-  // lastName: DataTypes.STRING,
-  // address: DataTypes.STRING,
-  // phoneNumber: DataTypes.STRING,
-  // gender: DataTypes.BOOLEAN,
-  // image: DataTypes.STRING,
-  // roleId: DataTypes.STRING,
-  // possitionId: DataTypes.STRING
+const { faker } = require('@faker-js/faker');
 
-  up: (queryInterface, Sequelize) => {
-    return queryInterface.bulkInsert('Users', [
-      {
-        email: 'admin@gmail.com',
-        password: '1111',
-        firstName: 'Anh',
-        lastName: 'Tu',
-        address: 'HaNoi',
-        phoneNumber: '1900 3838',
-        gender: 1,
-        image: 'https://sequelize.org/img/logo.svg',
-        roleId: 'R1',
-        possitionId: 'R1',
+module.exports = {
+  up: async (queryInterface, Sequelize) => {
+    let users = [];
+
+    for (let i = 0; i < 100; i++) {
+      users.push({
+        email: faker.internet.email(),
+        password: faker.internet.password(),
+        firstName: faker.name.firstName(),
+        lastName: faker.name.lastName(),
+        address: faker.address.city(),
+        phoneNumber: faker.phone.number(),
+        gender: Math.random() < 0.5 ? 0 : 1,
+        image: faker.image.avatar(),
+        roleId: 'R' + (Math.random() < 0.5 ? '1' : '2'),
+        possitionId: 'R' + (Math.random() < 0.5 ? '1' : '2'),
         createdAt: new Date(),
         updatedAt: new Date(),
-      },
-    ]);
+      });
+    }
+
+    return queryInterface.bulkInsert('Users', users);
   },
-  down: (queryInterface, Sequelize) => {
+
+  down: async (queryInterface, Sequelize) => {
     return queryInterface.bulkDelete('Users', null, {});
   },
 };

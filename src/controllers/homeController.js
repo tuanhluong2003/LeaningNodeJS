@@ -1,20 +1,57 @@
 import db from '../models/index';
 
 let getHomePage = async (req, res) => {
-    let data = await db.User.findAll();
-    return res.render('homepage.ejs',
-        {
-            data: JSON.stringify(data)
-        }
-    );
+    try {
+        let page = parseInt(req.query.page) || 1;  // Lấy page từ query string, mặc định là 1
+        let limit = 10;  // Số lượng bản ghi mỗi trang
+        let offset = (page - 1) * limit;
+
+        // Lấy dữ liệu có phân trang
+        let { count, rows } = await db.User.findAndCountAll({
+            limit: limit,
+            offset: offset
+        });
+
+        let totalPages = Math.ceil(count / limit); // Tính tổng số trang
+
+        return res.render('homepage.ejs', {
+            data: rows,
+            currentPage: page,
+            totalPages: totalPages
+        });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).send("Lỗi server!");
+    }
 }
 
-let getAboutPage = (req, res) => {
-    return res.render('test/about.ejs');
+let getINFOPage = async (req, res) => {
+    try {
+        let page = parseInt(req.query.page) || 1;  // Lấy page từ query string, mặc định là 1
+        let limit = 10;  // Số lượng bản ghi mỗi trang
+        let offset = (page - 1) * limit;
+
+        // Lấy dữ liệu có phân trang
+        let { count, rows } = await db.INFO.findAndCountAll({
+            limit: limit,
+            offset: offset
+        });
+
+        let totalPages = Math.ceil(count / limit); // Tính tổng số trang
+
+        return res.render('test/about.ejs', {
+            data: rows,
+            currentPage: page,
+            totalPages: totalPages
+        });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).send("Lỗi server!");
+    }
 }
 
 
 module.exports = {
     getHomePage: getHomePage,
-    getAboutPage: getAboutPage
+    getINFOPage: getINFOPage
 }
