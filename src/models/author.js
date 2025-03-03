@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
          * The `models/index` file will call this method automatically.
          */
         static associate(models) { // định danh các mối quan hệ
-            Author.hasMany(models.Post, { foreignKey: 'id', as: 'Posts' });
+            Author.hasMany(models.Post, { foreignKey: 'authorId', as: 'Post' });
         }
     };
     Author.init({

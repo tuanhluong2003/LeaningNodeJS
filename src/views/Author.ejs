@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh sách dữ liệu</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="container mt-10">
+        <h2 class="text-center mb-10">Danh sách dữ liệu POST</h2>
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Birthday</th>
+                        <th>address</th>
+                        <th>email</th>
+                        <th>All Post</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% if (data.length> 0) { %>
+                        <% data.forEach(item=> { %>
+                            <tr>
+                                <td>
+                                    <%= item.id %>
+                                </td>
+                                <td>
+                                    <%= item.name %>
+                                </td>
+                                <td>
+                                    <%= new Date(item.birthday).toLocaleDateString('vi-VN') %>
+                                </td>
+                                <td>
+                                    <%= item.address %>
+                                </td>
+                                <td>
+                                    <%= item.email %>
+                                </td>
+                                <td>
+                                    <% if (item.Post.length> 0) { %>
+                                        <ul>
+                                            <% item.Post.forEach(post=> { %>
+                                                <li>
+                                                    <%= post.title %>
+                                                </li>
+                                                <% }) %>
+                                        </ul>
+                                        <% } else { %>
+                                            Không có bài viết nào
+                                            <% } %>
+                                </td>
+                            </tr>
+                            <% }) %>
+                                <% } else { %>
+                                    <tr>
+                                        <td colspan="11" class="text-center">Không có dữ liệu</td>
+                                    </tr>
+                                    <% } %>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- PHÂN TRANG -->
+        <nav>
+            <ul class="pagination justify-content-center">
+                <% if (currentPage> 1) { %>
+                    <li class="page-item">
+                        <a class="page-link" href="?page=<%= currentPage - 1 %>">Trang trước</a>
+                    </li>
+                    <% } %>
+
+                        <% for (let i=1; i <=totalPages; i++) { %>
+                            <li class="page-item <%= (i === currentPage) ? 'active' : '' %>">
+                                <a class="page-link" href="?page=<%= i %>">
+                                    <%= i %>
+                                </a>
+                            </li>
+                            <% } %>
+
+                                <% if (currentPage < totalPages) { %>
+                                    <li class="page-item">
+                                        <a class="page-link" href="?page=<%= currentPage + 1 %>">Trang sau</a>
+                                    </li>
+                                    <% } %>
+            </ul>
+        </nav>
+
+        <div style="display: block; text-align:right;">
+            <a href="http://localhost:8080/post" target="_blank" style="text-decoration: none;">All Post >></a>
+        </div>
+    </div>
+</body>
+
+</html>
